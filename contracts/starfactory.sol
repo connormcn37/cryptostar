@@ -4,19 +4,17 @@ import "./ownable.sol";
 
 contract StarFactory is Ownable {
 
-    enum Race { Organic, Inorganic, Energy, Empty };
+    //enum Race { Organic, Inorganic, Energy, Empty };
 
     struct Star {
         string name;
         uint latitude;
         uint longitude;
         uint minerals;
+        uint troops;
     }
 
-    //uint dnaDigits = 16;
-    //uint dnaModulus = 10 ** dnaDigits;
-
-    event NewStar(id, _name, _latitude, _longitude);
+    //event NewStar(id, _name, _latitude, _longitude, _minerals);
 
     Star[] public stars;
 
@@ -25,20 +23,56 @@ contract StarFactory is Ownable {
     mapping (address => uint) ownerStarCount;
     //mapping (address => Race)
     // note: external (not used here) can only be called outside the contract
-    function createStar(string _name, uint _latitude, uint _longitude, _minerals, _natives) onlyOwner {
-        uint id = stars.push(Star(_name, _dna, _longitude);
+    function createStar(string _name, uint _latitude, uint _longitude, uint _minerals, uint _troops) external onlyOwner {
+        uint id = stars.push(Star(_name, _latitude, _longitude, _minerals, _troops));
         // msg.sender is the address of the caller
         starToOwner[id] = msg.sender;
         ownerStarCount[msg.sender]++;
         // call the event, so the listeners will get the notice of a new created star
-        NewStar(id, _name, _latitude, _longitude,);
+        //NewStar(id, _name, _latitude, _longitude);
     }
-    /*
-    function _generateRandomDna(string _str) private view returns (uint) {
-        uint rand = uint(keccak256(_str));
-        return rand % dnaModulus;
-    }*/
-    // view functions can access but not change storage variables
-    // note: pure (not used here) is all self contained and only uses the parameters
+
+    event StarNamed(uint starId, string name);
+
+  function changeName(uint _starId, string _newName) external {
+    require(msg.sender == starToOwner[_starId]);
+    stars[_starId].name = _newName;
+    StarNamed(_starId,_newName);
+  }
+
+  function getStarsByOwner(address _owner) external view returns(uint[]) {
+    uint[] memory result = new uint[](ownerStarCount[_owner]);
+    uint counter = 0;
+    for (uint i = 0; i < stars.length; i++) {
+      if (starToOwner[i] == _owner) {
+        result[counter] = i;
+        counter++;
+      }
+    }
+    return result;
+  }
+
+  /*function getMineralsByOwner(address _owner) external view returns(uint) {
+      uint result = 0;
+      for (uint i = 0; i < stars.length; i++){
+          if (starToOwner[i] == _owner) {
+              result += stars[i].minerals;
+          }
+      }
+      return result;
+  }*/
+
+  function transferStar(uint _starId, address _newOwner) external {
+    //require(msg.sender == _currentOwner);
+    require(starToOwner[_starId] == msg.sender || starToOwner[_starId] == owner);
+    starToOwner[_starId] = _newOwner;
+  }
+
+  function trainTroops(uint _starId, uint _troopAmount) external {
+      require(starToOwner[_starId] == msg.sender);
+      require(stars[_starId].minerals >= _troopAmount);
+      stars[_starId].minerals -= _troopAmount;
+      stars[_starId].troops = _troopAmount;
+  }
 
 }
