@@ -20,7 +20,7 @@ async function action({ fetch }) {
   // const { data } = await resp.json();
   // if (!data || !data.news) throw new Error('Failed to load the news feed.');
   const version = '123456789';
-  const backgroundImg = 'images/starfield-6.png';
+  const backgroundImg = 'images/purple-galaxy.jpg';
   const starImage = 'images/star-1.jpg';
 
   return {

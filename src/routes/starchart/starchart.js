@@ -10,10 +10,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import Parallax from 'react-springy-parallax';
+import { Parallax } from 'react-scroll-parallax';
+// import styled from 'styled-components';
 import Web3 from 'web3';
 import { RaisedButton } from 'material-ui';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 import FontIcon from 'material-ui/FontIcon';
 import {
   InteractiveForceGraph,
@@ -21,7 +22,15 @@ import {
   ForceGraphNode,
   ForceGraphLink,
 } from 'react-vis-force';
-import s from './starchart.css';
+import './starchart.css';
+// import img from '/images/starfield-1.jpg';
+
+// const Content = styled.div`
+//   border: 1px solid #000;
+//   background-image: url(${img});
+//   width: 2000px;
+//   height: 2000px;
+// `;
 
 class Home extends React.Component {
   static propTypes = {
@@ -29,55 +38,73 @@ class Home extends React.Component {
     backgroundImg: PropTypes.string.isRequired,
     starImage: PropTypes.string.isRequired,
   };
+  handleLoad = () => {
+    // updates cached values after image dimensions have loaded
+    this.context.parallaxController.update();
+  };
   clickStar = () => {
     console.log('1.Home clickStar!');
   };
   render() {
     const styles = {
-      display: 'flex',
       backgroundImage: `url(${this.props.backgroundImg})`,
-      fontFamily: 'Menlo-Regular, Menlo, monospace',
-      fontSize: 14,
-      resizeMode: 'cover',
-      color: 'transparent',
-      alignItems: 'center',
-      justifyContent: 'center',
+      /* Set rules to fill background */
+      minheight: '100%',
+      minwidth: '100%',
+
+      /* Set up proportionate scaling */
+      width: '100%',
+      height: '90%',
+
+      /* Set up positioning */
+      position: 'fixed',
+      bottom: 0,
+      left: 0,
+      zindex: 999,
     };
     return (
-      <MuiThemeProvider>
-        <Parallax ref="parallax" pages={1}>
-          <Parallax.Layer offset={0} speed={0.5} style={styles}>
-            <img
-              alt="starbase 1"
-              width="30px"
-              height="30px"
-              border-radius="50%"
-              src={this.props.starImage}
-              onClick={this.clickStar}
+      <div style={styles} className="admin-dashboard">
+        <Parallax
+          className="custom-class"
+          offsetYMax={10}
+          offsetYMin={-10}
+          slowerScrollRate
+          tag="figure"
+        >
+          <InteractiveForceGraph
+            simulationOptions={{ height: 300, width: 300 }}
+            labelAttr="label"
+            onSelectNode={node => console.log(node)}
+            highlightDependencies
+          >
+            <ForceGraphNode
+              node={{ id: 'first-occupied-node', label: 'occupied' }}
+              fill="gray"
             />
-            <InteractiveForceGraph
-              simulationOptions={{ height: 300, width: 300 }}
-              labelAttr="label"
-              onSelectNode={node => console.log(node)}
-              highlightDependencies
-            >
-              <ForceGraphNode
-                node={{ id: 'first-node', label: 'First node' }}
-                fill="red"
-              />
-              <ForceGraphNode
-                node={{ id: 'second-node', label: 'Second node' }}
-                fill="blue"
-              />
-              <ForceGraphLink
-                link={{ source: 'first-node', target: 'second-node' }}
-              />
-            </InteractiveForceGraph>
-          </Parallax.Layer>
+            <ForceGraphNode
+              node={{ id: 'second-occupied-node', label: 'occupied' }}
+              fill="gray"
+            />
+            <ForceGraphNode
+              node={{ id: 'first-frozen-node', label: 'frozen' }}
+              fill="blue"
+            />
+            <ForceGraphNode
+              node={{ id: 'first-unclaimed-node', label: 'unclaimed' }}
+              fill="green"
+            />
+            <ForceGraphLink
+              link={{
+                source: 'first-occupied-node',
+                target: 'second-occupied-node',
+              }}
+              strokeWidth="1"
+            />
+          </InteractiveForceGraph>
         </Parallax>
-      </MuiThemeProvider>
+      </div>
     );
   }
 }
 // //////
-export default withStyles(s)(Home);
+export default withStyles()(Home);

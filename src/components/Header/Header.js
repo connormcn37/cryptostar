@@ -15,15 +15,28 @@ import Navigation from '../Navigation';
 import logoUrl from './logo-small.png';
 import logoUrl2x from './logo-small@2x.png';
 
+const Welcome = visible =>
+  visible ? (
+    <div className={s.banner}>
+      <h1 className={s.bannerTitle}>Welcome</h1>
+      <p className={s.bannerDesc}>Inscribe your Achievements in the Star!</p>
+    </div>
+  ) : (
+    ''
+  );
+
 class Header extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       brandTxt: 'cryptoStar',
-      bannerTitle: 'Welcome',
-      bannerDesc: 'Inscribe your Achievements in the Stars!',
+      showWelcome: true,
     };
   }
+  showOnce = () => {
+    this.setState({ showWelcome: !this.state.showWelcome });
+    return Welcome;
+  };
   render() {
     return (
       <div className={s.root}>
@@ -35,15 +48,12 @@ class Header extends React.Component {
               srcSet={`${logoUrl2x} 2x`}
               width="38"
               height="38"
-              alt="React"
+              alt="cryptoStar"
             />
             <span className={s.brandTxt}>{this.state.brandTxt}</span>
           </Link>
-          <div className={s.banner}>
-            <h1 className={s.bannerTitle}>{this.state.bannerTitle}</h1>
-            <p className={s.bannerDesc}>{this.state.bannerDesc}</p>
-          </div>
         </div>
+        {Welcome(this.state.showWelcome)}
       </div>
     );
   }

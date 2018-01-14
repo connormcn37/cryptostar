@@ -1,49 +1,45 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
+img.bg {
+  /* Set rules to fill background */
+  min-height: 100%;
+  min-width: 1024px;
 
-@import '../../components/variables.css';
+  /* Set up proportionate scaling */
+  width: 100%;
+  height: auto;
 
-.root {
-  padding-left: 20px;
-  padding-right: 20px;
+  /* Set up positioning */
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
 }
 
-.container {
-  margin: 0 auto;
-  padding: 0 0 40px;
-  max-width: var(--max-content-width);
+div.admin-bg {
+  /* Set rules to fill background */
+  min-height: 100%;
+  min-width: 1024px;
+
+  /* Set up proportionate scaling */
+  width: 100%;
+  height: auto;
+
+  /* Set up positioning */
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  background-color: $admin-bg;
 }
 
-.newsItem {
-  margin: 0 0 2rem;
-}
-
-.newsTitle {
-  font-size: 1.5rem;
-}
-
-.newsDesc {
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-size: 1.125rem;
+@media screen and (max-width: 1024px) {
+  /* Specific to this particular image */
+  img.bg {
+    left: 50%;
+    margin-left: -512px; /* 50% */
   }
 
-  pre {
-    white-space: pre-wrap;
-    font-size: 0.875rem;
-  }
-
-  img {
-    max-width: 100%;
+  div.admin-bg {
+    left: 50%;
+    margin-left: -512px; /* 50% */
   }
 }

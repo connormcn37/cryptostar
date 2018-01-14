@@ -13,6 +13,10 @@ import ReactDOM from 'react-dom';
 import deepForceUpdate from 'react-deep-force-update';
 import queryString from 'query-string';
 import { createPath } from 'history/PathUtils';
+
+import { ParallaxProvider } from 'react-scroll-parallax';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 import App from './components/App';
 import createFetch from './createFetch';
 import history from './history';
@@ -84,7 +88,11 @@ async function onLocationChange(location, action) {
 
     const renderReactApp = isInitialRender ? ReactDOM.hydrate : ReactDOM.render;
     appInstance = renderReactApp(
-      <App context={context}>{route.component}</App>,
+      <MuiThemeProvider>
+        <ParallaxProvider>
+          <App context={context}>{route.component}</App>
+        </ParallaxProvider>
+      </MuiThemeProvider>,
       container,
       () => {
         if (isInitialRender) {

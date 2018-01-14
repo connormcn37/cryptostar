@@ -17,19 +17,19 @@ class Navigation extends React.Component {
   render() {
     return (
       <div className={s.root} role="navigation">
+        <Link className={cx(s.link, s.highlight)} to="/starchart">
+          Claim Your Star
+        </Link>
+        {/* <Link className={s.link} to="/starchart">
+          Enter
+        </Link> */}
+        <span className={s.spacer}> | </span>
         <Link className={s.link} to="/about">
           About
         </Link>
+        <span className={s.spacer}> | </span>
         <Link className={s.link} to="/contact">
           Contact
-        </Link>
-        <span className={s.spacer}> | </span>
-        <Link className={s.link} to="/starchart">
-          Login
-        </Link>
-        <span className={s.spacer}>or</span>
-        <Link className={cx(s.link, s.highlight)} to="/register">
-          Claim Your Star
         </Link>
       </div>
     );

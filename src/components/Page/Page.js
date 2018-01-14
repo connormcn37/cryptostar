@@ -17,7 +17,22 @@ class Page extends React.Component {
     title: PropTypes.string.isRequired,
     html: PropTypes.string.isRequired,
   };
+  // static styles = {
+  //   backgroundImage: 'images/starfield-1.jpg',
+  //   /* Set rules to fill background */
+  //   minheight: '100%',
+  //   minwidth: '1024px',
 
+  //   /* Set up proportionate scaling */
+  //   width: 'auto',
+  //   height: '100%',
+
+  //   /* Set up positioning */
+  //   position: 'fixed',
+  //   top: 0,
+  //   left: 0,
+  //   zindex: -1,
+  // };
   render() {
     const { title, html } = this.props;
     return (
@@ -25,6 +40,7 @@ class Page extends React.Component {
         <div className={s.container}>
           <h1>{title}</h1>
           <div
+            // style={this.styles}
             // eslint-disable-next-line react/no-danger
             dangerouslySetInnerHTML={{ __html: html }}
           />
