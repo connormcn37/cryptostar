@@ -50,7 +50,7 @@ contract StarFactory is Ownable {
   }
 
   function transferStar(uint _starId, address _newOwner) public {
-    require(starToOwner[_starId] == msg.sender || starToOwner[_starId] == this);
+    require(starToOwner[_starId] == msg.sender || starToOwner[_starId] == address(this));
     ownerStarCount[starToOwner[_starId]]--;
     starToOwner[_starId] = _newOwner;
     ownerStarCount[_newOwner]++;
