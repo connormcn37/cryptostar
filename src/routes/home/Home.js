@@ -21,8 +21,9 @@ class Home extends React.Component {
     return (
       <div className={s.root}>
         <div className={s.container}>
-          <h1>cryptoStar Alive</h1>
+          <h1>cryptoStar Online</h1>
           release : {this.props.version}
+          <h1>New Parsec Discovered</h1>
         </div>
       </div>
     );

@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { Parallax } from 'react-scroll-parallax';
 // import styled from 'styled-components';
-import Web3 from 'web3';
+
 import { RaisedButton } from 'material-ui';
 
 import FontIcon from 'material-ui/FontIcon';
@@ -23,20 +23,17 @@ import {
   ForceGraphLink,
 } from 'react-vis-force';
 import './starchart.css';
-// import img from '/images/starfield-1.jpg';
-
-// const Content = styled.div`
-//   border: 1px solid #000;
-//   background-image: url(${img});
-//   width: 2000px;
-//   height: 2000px;
-// `;
+import Utils from './utils';
 
 class Home extends React.Component {
   static propTypes = {
     version: PropTypes.string.isRequired,
     backgroundImg: PropTypes.string.isRequired,
     starImage: PropTypes.string.isRequired,
+  };
+  componentWillMount = () => {
+    const { address } = Utils;
+    console.log('1.starchart cwm : ', address);
   };
   handleLoad = () => {
     // updates cached values after image dimensions have loaded
@@ -86,11 +83,27 @@ class Home extends React.Component {
               fill="gray"
             />
             <ForceGraphNode
+              node={{ id: 'third-occupied-node', label: 'occupied' }}
+              fill="gray"
+            />
+            <ForceGraphNode
+              node={{ id: 'fourth-occupied-node', label: 'occupied' }}
+              fill="gray"
+            />
+            <ForceGraphNode
               node={{ id: 'first-frozen-node', label: 'frozen' }}
               fill="blue"
             />
             <ForceGraphNode
               node={{ id: 'first-unclaimed-node', label: 'unclaimed' }}
+              fill="blue"
+            />
+            <ForceGraphNode
+              node={{ id: 'second-unclaimed-node', label: 'unclaimed' }}
+              fill="green"
+            />
+            <ForceGraphNode
+              node={{ id: 'third-unclaimed-node', label: 'unclaimed' }}
               fill="green"
             />
             <ForceGraphLink
