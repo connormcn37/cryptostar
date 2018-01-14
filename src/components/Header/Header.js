@@ -21,7 +21,7 @@ class Header extends React.Component {
     this.state = {
       brandTxt: 'cryptoStar',
       bannerTitle: 'Welcome',
-      bannerDesc: 'Inscribe your Achivements in the Stars!',
+      bannerDesc: 'Inscribe your Achievements in the Stars!',
     };
   }
   render() {

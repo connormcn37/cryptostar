@@ -24,12 +24,12 @@ class Navigation extends React.Component {
           Contact
         </Link>
         <span className={s.spacer}> | </span>
-        <Link className={s.link} to="/login">
-          Log in
+        <Link className={s.link} to="/starchart">
+          Login
         </Link>
         <span className={s.spacer}>or</span>
         <Link className={cx(s.link, s.highlight)} to="/register">
-          Sign up
+          Claim Your Star
         </Link>
       </div>
     );

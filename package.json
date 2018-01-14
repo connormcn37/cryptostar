@@ -118,7 +118,7 @@
     "webpack-node-externals": "1.6.0"
   },
   "lint-staged": {
-    "*.{js,jsx}": ["eslint --no-verify", "git add --force"],
+    "*.{js,jsx}": ["git add --force"],
     "*.{json,md,graphql}": ["prettier --write", "git add --force"],
     "*.{css,less,styl,scss,sass,sss}": ["stylelint --fix", "git add --force"]
   },
