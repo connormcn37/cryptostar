@@ -23,7 +23,7 @@ import {
   ForceGraphLink,
 } from 'react-vis-force';
 import './starchart.css';
-import Utils from './utils';
+import BChain from './utils/blockchain';
 
 class Home extends React.Component {
   static propTypes = {
@@ -31,10 +31,7 @@ class Home extends React.Component {
     backgroundImg: PropTypes.string.isRequired,
     starImage: PropTypes.string.isRequired,
   };
-  componentWillMount = () => {
-    const { address } = Utils;
-    console.log('1.starchart cwm : ', address);
-  };
+  componentWillMount = () => {};
   handleLoad = () => {
     // updates cached values after image dimensions have loaded
     this.context.parallaxController.update();
