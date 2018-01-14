@@ -23,7 +23,7 @@ class Layout extends React.Component {
     children: PropTypes.node.isRequired,
   };
 
-  render() {
+  renderLoggedIn() {
     return (
       <div>
         <Header />
@@ -32,6 +32,9 @@ class Layout extends React.Component {
         <Footer />
       </div>
     );
+  }
+  render() {
+    return <div>{this.props.children}</div>;
   }
 }
 

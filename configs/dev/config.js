@@ -8,7 +8,7 @@
  */
 
 /* eslint-disable max-len */
-const defaultPort = 8080;
+const defaultPort = 3000 //8080;
 
 if (process.env.BROWSER) {
   throw new Error(

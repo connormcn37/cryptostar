@@ -20,12 +20,20 @@ async function action({ fetch }) {
   const { data } = await resp.json();
   if (!data || !data.news) throw new Error('Failed to load the news feed.');
   const version = '123456789';
+  const backgroundImg1 = 'images/starfield-1.jpg';
+  const backgroundImg2 = 'images/starfield-2.jpg';
+  const backgroundImg3 = 'images/starfield-3.jpg';
   return {
     chunks: ['home'],
     title: 'cryptStar',
     component: (
       <Layout>
-        <Home news={version} />
+        <Home
+          version={version}
+          backgroundImg1={backgroundImg1}
+          backgroundImg2={backgroundImg2}
+          backgroundImg3={backgroundImg3}
+        />
       </Layout>
     ),
   };
