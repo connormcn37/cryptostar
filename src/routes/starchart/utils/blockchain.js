@@ -1,30 +1,13 @@
-import Web3 from 'web3';
+var Web3 = require('web3');
 
-if (typeof web3 !== 'undefined') {
-  web3 = new Web3(web3.currentProvider);
+if (typeof web3 != 'undefined') {
+  console.log('Using web3 detected from external source like Metamask');
+  this.web3 = new Web3(web3.currentProvider);
 } else {
-  // set the provider you want from Web3.providers
-  web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
+  console.log(
+    "No web3 detected. Falling back to http://localhost:8545. You should remove this fallback when you deploy live, as it's inherently insecure. Consider switching to Metamask for development. More info here: http://truffleframework.com/tutorials/truffle-and-metamask",
+  );
+  this.web3 = new Web3(
+    new Web3.providers.WebsocketProvider('ws://localhost:8545'),
+  );
 }
-const abi = [
-  {
-    constant: true,
-    inputs: [],
-    name: 'owner',
-    outputs: [{ name: '', type: 'address' }],
-    payable: false,
-    type: 'function',
-  },
-  { payable: false, type: 'fallback' },
-];
-const address = '0x98325c336c9f9261d6Ff15Cbb83bb39b74f41802';
-const deployedContract = new web3.eth.Contract(abi, address);
-const latestSubscription = web3.eth.subscribe('latest');
-const blockNumber = web3.eth.blockNumber;
-
-latestSubscription.watch((error, result) => {
-  const block = web3.eth.getBlockNumber(result, true);
-  console.log('1.blockchain : ', block.number);
-});
-
-export { web3, abi, address, deployedContract, filter, blockNumber };
