@@ -1,7 +1,9 @@
 pragma solidity ^0.4.19;
 
+import "./starfactory.sol";
+
 contract StarHelper is StarFactory {
-  
+
   event StarNamed(uint starId, string name);
 
   function changeName(uint _starId, string _newName) external {
