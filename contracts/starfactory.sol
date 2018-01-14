@@ -73,6 +73,7 @@ contract StarFactory is Ownable {
           stars[_fromStarId].troops -= stars[_toStarId].troops;
           stars[_toStarId].troops = 0;
           transferStar(_toStarId, msg.sender);
+          starToOwner[_starId] = msg.sender;
       }
   }
 
