@@ -12,150 +12,75 @@ if (typeof web3 != 'undefined') {
   );
 }
 
-const MyContract = web3.eth.contract([
-  {
-    constant: false,
-    inputs: [],
-    name: 'generateNumberWinner',
-    outputs: [],
-    payable: true,
-    type: 'function',
-  },
-  {
-    constant: false,
-    inputs: [
-      { name: 'myid', type: 'bytes32' },
-      { name: 'result', type: 'string' },
-    ],
-    name: '__callback',
-    outputs: [],
-    payable: false,
-    type: 'function',
-  },
-  {
-    constant: true,
-    inputs: [],
-    name: 'numberOfBets',
-    outputs: [{ name: '', type: 'uint256' }],
-    payable: false,
-    type: 'function',
-  },
-  {
-    constant: false,
-    inputs: [
-      { name: '_queryId', type: 'bytes32' },
-      { name: '_result', type: 'string' },
-      { name: '_proof', type: 'bytes' },
-    ],
-    name: '__callback',
-    outputs: [],
-    payable: false,
-    type: 'function',
-  },
-  {
-    constant: false,
-    inputs: [{ name: 'player', type: 'address' }],
-    name: 'checkPlayerExists',
-    outputs: [{ name: '', type: 'bool' }],
-    payable: false,
-    type: 'function',
-  },
-  {
-    constant: false,
-    inputs: [],
-    name: 'kill',
-    outputs: [],
-    payable: false,
-    type: 'function',
-  },
-  {
-    constant: false,
-    inputs: [],
-    name: 'resetData',
-    outputs: [],
-    payable: false,
-    type: 'function',
-  },
-  {
-    constant: false,
-    inputs: [{ name: 'bets', type: 'uint256' }],
-    name: 'updateMaxBets',
-    outputs: [],
-    payable: false,
-    type: 'function',
-  },
-  {
-    constant: false,
-    inputs: [{ name: 'number', type: 'uint256' }],
-    name: 'bet',
-    outputs: [],
-    payable: true,
-    type: 'function',
-  },
-  {
-    constant: false,
-    inputs: [{ name: 'amountWei', type: 'uint256' }],
-    name: 'updateMinimumBet',
-    outputs: [],
-    payable: false,
-    type: 'function',
-  },
-  {
-    constant: false,
-    inputs: [],
-    name: 'distributePrizes',
-    outputs: [],
-    payable: false,
-    type: 'function',
-  },
-  {
-    constant: true,
-    inputs: [],
-    name: 'numberWinner',
-    outputs: [{ name: '', type: 'uint256' }],
-    payable: false,
-    type: 'function',
-  },
-  {
-    constant: true,
-    inputs: [],
-    name: 'minimumBet',
-    outputs: [{ name: '', type: 'uint256' }],
-    payable: false,
-    type: 'function',
-  },
-  {
-    constant: true,
-    inputs: [],
-    name: 'maxAmountOfBets',
-    outputs: [{ name: '', type: 'uint256' }],
-    payable: false,
-    type: 'function',
-  },
-  {
-    constant: true,
-    inputs: [{ name: '', type: 'uint256' }],
-    name: 'players',
-    outputs: [{ name: '', type: 'address' }],
-    payable: false,
-    type: 'function',
-  },
-  {
-    constant: true,
-    inputs: [],
-    name: 'totalBet',
-    outputs: [{ name: '', type: 'uint256' }],
-    payable: false,
-    type: 'function',
-  },
-  {
-    inputs: [{ name: '_maxAmountOfBets', type: 'uint256' }],
-    payable: false,
-    type: 'constructor',
-  },
-  { payable: true, type: 'fallback' },
-]);
-const ContractInstance = MyContract.at(
-  '0x71e26d3581058dfc17517d1308686fd81ef4cf01',
-);
-console.log('1.blockchain Contract : ', ContractInstance);
+//
+// const ContractInstance = this.web3.eth.contract.at(
+//   '0x71e26d3581058dfc17517d1308686fd81ef4cf01',
+// );
+// console.log('1.blockchain Contract : ', ContractInstance);
+const alexID = '0x98325c336c9f9261d6Ff15Cbb83bb39b74f41802';
+
+var i = web3.eth.iban.fromAddress(alexID);
+console.log(i.toString()); // XE66HS0N6EYN8A0T2V8HK1QTVX2ACF96FB6
+
+// var abi = [
+//   {
+//     name: 'myConstantMethod',
+//     type: 'function',
+//     constant: true,
+//     inputs: [{ name: 'a', type: 'string' }],
+//     outputs: [{ name: 'd', type: 'string' }],
+//   },
+//   {
+//     name: 'myStateChangingMethod',
+//     type: 'function',
+//     constant: false,
+//     inputs: [{ name: 'a', type: 'string' }, { name: 'b', type: 'int' }],
+//     outputs: [],
+//   },
+//   {
+//     name: 'myEvent',
+//     type: 'event',
+//     inputs: [
+//       { name: 'a', type: 'int', indexed: true },
+//       { name: 'b', type: 'bool', indexed: false },
+//     ],
+//   },
+// ];
+export const account = web3.eth.defaultAccount;
+console.log('1.blockchain account : ', account);
+// // creation of contract object
+// var MyContract = web3.eth.contract(abi);
+
+// initiate contract for an address
+// var myContractInstance = web3.eth.contract.at(
+//   '0x71e26d3581058dfc17517d1308686fd81ef4cf01',
+// );
+
+// console.log('1.blockchain mycontract : ', myContractInstance);
+
+// call constant function
+// var result = myContractInstance.myConstantMethod('myParam');
+// console.log(result); // '0x25434534534'
+
+// send a transaction to a function
+// myContractInstance.myStateChangingMethod('someParam1', 23, {
+//   value: 200,
+//   gas: 2000,
+// });
+
+// short hand style
+// web3.eth.contract(abi).at(address).myAwesomeMethod(...);
+
+// create filter
+// var filter = myContractInstance.myEvent({a: 5}, function (error, result) {
+//  if (!error)
+//    console.log(result);
+//    /*
+//    {
+//        address: '0x8718986382264244252fc4abd0339eb8d5708727',
+//        topics: "0x12345678901234567890123456789012", "0x0000000000000000000000000000000000000000000000000000000000000005",
+//        data: "0x0000000000000000000000000000000000000000000000000000000000000001",
+//        ...
+//    }
+//    */
+// });

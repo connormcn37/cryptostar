@@ -23,7 +23,7 @@ import {
   ForceGraphLink,
 } from 'react-vis-force';
 import './starchart.css';
-import BChain from './utils/blockchain';
+import { account } from './utils/blockchain';
 
 class Home extends React.Component {
   static propTypes = {
