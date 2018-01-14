@@ -52,17 +52,7 @@ contract StarFactory is Ownable {
     return result;
   }
 
-  /*function getMineralsByOwner(address _owner) external view returns(uint) {
-      uint result = 0;
-      for (uint i = 0; i < stars.length; i++){
-          if (starToOwner[i] == _owner) {
-              result += stars[i].minerals;
-          }
-      }
-      return result;
-  }*/
-
-  function transferStar(uint _starId, address _newOwner) external {
+  function transferStar(uint _starId, address _newOwner) public {
     //require(msg.sender == _currentOwner);
     require(starToOwner[_starId] == msg.sender || starToOwner[_starId] == owner);
     starToOwner[_starId] = _newOwner;
@@ -73,6 +63,17 @@ contract StarFactory is Ownable {
       require(stars[_starId].minerals >= _troopAmount);
       stars[_starId].minerals -= _troopAmount;
       stars[_starId].troops = _troopAmount;
+  }
+
+  function attackStar(uint _fromStarId, uint _toStarId){
+      require(starToOwner[_fromStarId] == msg.sender);
+      require(stars[_fromStarId].minerals > 0 && stars[_fromStarId].troops > 0);
+      stars[_fromStarId].minerals--;
+      if(stars[_fromStarId].troops > stars[_toStarId].troops){
+          stars[_fromStarId].troops -= stars[_toStarId].troops;
+          stars[_toStarId].troops = 0;
+          transferStar(_toStarId, msg.sender);
+      }
   }
 
 }
