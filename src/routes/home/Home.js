@@ -11,53 +11,74 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import Parallax from 'react-springy-parallax';
-import s from './Home.css';
+import Web3 from 'web3';
 import { RaisedButton } from 'material-ui';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import FontIcon from 'material-ui/FontIcon';
+import {
+  InteractiveForceGraph,
+  ForceGraph,
+  ForceGraphNode,
+  ForceGraphLink,
+} from 'react-vis-force';
+import s from './Home.css';
 
 class Home extends React.Component {
   static propTypes = {
     version: PropTypes.string.isRequired,
-    backgroundImg1: PropTypes.string.isRequired,
-    backgroundImg2: PropTypes.string.isRequired,
-    backgroundImg3: PropTypes.string.isRequired,
+    backgroundImg: PropTypes.string.isRequired,
+    starImage: PropTypes.string.isRequired,
   };
   clickStar = () => {
     console.log('1.Home clickStar!');
   };
   render() {
     const styles = {
-      backgroundColor: '#87BCDE',
-      backgroundImage: 'url(' + this.props.backgroundImg3 + ')',
+      display: 'flex',
+      backgroundImage: `url(${this.props.backgroundImg})`,
       fontFamily: 'Menlo-Regular, Menlo, monospace',
       fontSize: 14,
-      lineHeight: '10px',
-      color: 'white',
-      display: 'flex',
+      flex: 1,
+      resizeMode: 'cover',
+      color: 'transparent',
       alignItems: 'center',
       justifyContent: 'center',
-    };
-    const buttonStyle = {
-      width: '15',
-      height: '15',
     };
     return (
       <MuiThemeProvider>
         <Parallax ref="parallax" pages={1}>
-          <Parallax.Layer offset={0} speed={1} style={styles}>
-            <input
-              type="image"
+          <Parallax.Layer offset={0} speed={0.5} style={styles}>
+            <img
               alt="starbase 1"
-              style={this.buttonStyle}
-              src="/images/star-1.jpg"
+              width="30px"
+              height="30px"
+              border-radius="50%"
+              src={this.props.starImage}
               onClick={this.clickStar}
             />
+            <InteractiveForceGraph
+              simulationOptions={{ height: 300, width: 300 }}
+              labelAttr="label"
+              onSelectNode={node => console.log(node)}
+              highlightDependencies
+            >
+              <ForceGraphNode
+                node={{ id: 'first-node', label: 'First node' }}
+                fill="red"
+              />
+              <ForceGraphNode
+                node={{ id: 'second-node', label: 'Second node' }}
+                fill="blue"
+              />
+              <ForceGraphLink
+                link={{ source: 'first-node', target: 'second-node' }}
+              />
+            </InteractiveForceGraph>
           </Parallax.Layer>
         </Parallax>
       </MuiThemeProvider>
     );
   }
 }
-////////
+// //////
 export default withStyles(s)(Home);

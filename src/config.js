@@ -8,7 +8,7 @@
  */
 
 /* eslint-disable max-len */
-const defaultPort = 8080;
+const defaultPort = 3000; // 8080;
 
 if (process.env.BROWSER) {
   throw new Error(
@@ -18,7 +18,8 @@ if (process.env.BROWSER) {
 
 module.exports = {
   // Node.js app
-  port: process.env.OPENSHIFT_NODEJS_PORT ||
+  port:
+    process.env.OPENSHIFT_NODEJS_PORT ||
     process.env.VCAP_APP_PORT ||
     process.env.PORT ||
     process.env.DEV_SERVICE_PORT ||
@@ -30,9 +31,10 @@ module.exports = {
     clientUrl: process.env.API_CLIENT_URL || '',
     // API URL to be used in the server-side code
     serverUrl:
-      process.env.API_SERVER_URL || process.env.GRAPHQL_URL ||
-      `http://${process.env.GRAPHQL_HOST ||
-        'localhost'}:${process.env.OPENSHIFT_NODEJS_PORT ||
+      process.env.API_SERVER_URL ||
+      process.env.GRAPHQL_URL ||
+      `http://${process.env.GRAPHQL_HOST || 'localhost'}:${process.env
+        .OPENSHIFT_NODEJS_PORT ||
         process.env.VCAP_APP_PORT ||
         process.env.PORT ||
         process.env.DEV_SERVICE_PORT ||
